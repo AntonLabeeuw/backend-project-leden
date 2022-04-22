@@ -9,4 +9,6 @@ global using MongoDB.Driver;
 
 // Custom
 global using Leden.API.Models;
+global using Leden.API.Repositories;
 global using Leden.API.Configuration;
+global using Leden.API.Context;
