@@ -8,4 +8,5 @@ global using MongoDB.Bson.Serialization.Attributes;
 global using MongoDB.Driver;
 
 // Custom
+global using Leden.API.Models;
 global using Leden.API.Configuration;

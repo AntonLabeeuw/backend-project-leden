@@ -1,6 +1,15 @@
 namespace Leden.API.Context;
 
-public class MongoContext
+public interface IMongoContext
+{
+    IMongoClient Client { get; }
+    IMongoDatabase Database { get; }
+    IMongoCollection<Lid> LidCollection { get; }
+    IMongoCollection<Tak> TakCollection { get; }
+    IMongoCollection<Groep> GroepCollection { get; }
+}
+
+public class MongoContext : IMongoContext
 {
     private readonly MongoClient _client;
     private readonly IMongoDatabase _database;
