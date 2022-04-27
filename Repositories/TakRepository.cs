@@ -5,7 +5,7 @@ public interface ITakRepository
     Task<Tak> AddTak(Tak newTak);
     Task<List<Tak>> GetAllTakken();
     Task<Tak> GetTak(string id);
-    Task<Tak> UpdateTak(Tak tak);
+    Task<Tak> UpdateTak(string takId, Tak tak);
 }
 
 public class TakRepository : ITakRepository
@@ -33,11 +33,11 @@ public class TakRepository : ITakRepository
         }
     }
 
-    public async Task<Tak> UpdateTak(Tak tak)
+    public async Task<Tak> UpdateTak(string takId, Tak tak)
     {
-        var filter = Builders<Tak>.Filter.Eq("TakId", tak.TakId);
-        var update = Builders<Tak>.Update.Set("TakNaam", tak.TakNaam);
+        var filter = Builders<Tak>.Filter.Eq(t => t.TakId, takId);
+        var update = Builders<Tak>.Update.Set(t => t.TakNaam, tak.TakNaam);
         var result = await _context.TakCollection.UpdateOneAsync(filter, update);
-        return await GetTak(tak.TakId);
+        return await GetTak(takId);
     }
 }
