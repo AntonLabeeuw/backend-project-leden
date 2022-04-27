@@ -8,6 +8,8 @@ services:
       context: .
     ports:
       - 3000:3000
+    volumes:
+      - ./appsettings.Docker.json:/app/appsettings.json
 
   mongo:
     hostname: mongo
@@ -19,4 +21,7 @@ services:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: example
     volumes:
-      - ./data:/data/db
+      - data:/data/db
+
+volumes:
+  data:
