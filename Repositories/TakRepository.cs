@@ -4,7 +4,7 @@ public interface ITakRepository
 {
     Task<Tak> AddTak(Tak newTak);
     Task<List<Tak>> GetAllTakken();
-    Task<Tak> GetTak(Guid id);
+    Task<Tak> GetTak(string id);
     Task<Tak> UpdateTak(Tak tak);
 }
 
@@ -19,12 +19,18 @@ public class TakRepository : ITakRepository
 
     public async Task<List<Tak>> GetAllTakken() => await _context.TakCollection.Find(_ => true).ToListAsync();
 
-    public async Task<Tak> GetTak(Guid id) => await _context.TakCollection.Find(t => t.TakId == id).FirstOrDefaultAsync();
+    public async Task<Tak> GetTak(string id) => await _context.TakCollection.Find(t => t.TakId == id).FirstOrDefaultAsync();
 
     public async Task<Tak> AddTak(Tak newTak)
     {
-        await _context.TakCollection.InsertOneAsync(newTak);
-        return newTak;
+        try {
+            await _context.TakCollection.InsertOneAsync(newTak);
+            return newTak;
+        }
+        catch (Exception ex){
+            Console.WriteLine(ex);
+            throw;
+        }
     }
 
     public async Task<Tak> UpdateTak(Tak tak)

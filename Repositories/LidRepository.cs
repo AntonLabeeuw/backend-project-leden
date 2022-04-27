@@ -4,9 +4,9 @@ public interface ILidRepository
 {
     Task<Lid> AddLid(Lid newLid);
     Task<List<Lid>> GetAllLeden();
-    Task<List<Lid>> GetLedenByGroepId(Guid GroepId);
-    Task<List<Lid>> GetLedenByTakId(Guid TakId);
-    Task<Lid> GetLid(Guid id);
+    Task<List<Lid>> GetLedenByGroepId(string GroepId);
+    Task<List<Lid>> GetLedenByTakId(string TakId);
+    Task<Lid> GetLid(string id);
 }
 
 public class LidRepository : ILidRepository
@@ -20,11 +20,11 @@ public class LidRepository : ILidRepository
 
     public async Task<List<Lid>> GetAllLeden() => await _context.LidCollection.Find(_ => true).ToListAsync();
 
-    public async Task<Lid> GetLid(Guid id) => await _context.LidCollection.Find(l => l.LidId == id).FirstOrDefaultAsync();
+    public async Task<Lid> GetLid(string id) => await _context.LidCollection.Find(l => l.LidId == id).FirstOrDefaultAsync();
 
-    public async Task<List<Lid>> GetLedenByTakId(Guid TakId) => await _context.LidCollection.Find(l => l.Tak.TakId == TakId).ToListAsync();
+    public async Task<List<Lid>> GetLedenByTakId(string TakId) => await _context.LidCollection.Find(l => l.Tak.TakId == TakId).ToListAsync();
 
-    public async Task<List<Lid>> GetLedenByGroepId(Guid GroepId) => await _context.LidCollection.Find(l => l.Groep.GroepId == GroepId).ToListAsync();
+    public async Task<List<Lid>> GetLedenByGroepId(string groepId) => await _context.LidCollection.Find(l => l.Groep.GroepId == groepId).ToListAsync();
 
     public async Task<Lid> AddLid(Lid newLid)
     {
