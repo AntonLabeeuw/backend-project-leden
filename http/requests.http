@@ -83,3 +83,49 @@ Content-Type: application/json
 }
 
 ###
+
+PUT http://0.0.0.0:3000/lid/62698fccde4532ed7323ceee HTTP/1.1
+Content-Type: application/json
+
+{
+    "Naam": "Labeeuw 2",
+    "Voornaam": "Anton 2",
+    "Adres1": "Kortestraat 2E 2",
+    "Adres2": "none",
+    "Email": "anton.labeeuw@outlook.be 2",
+    "Telefoon": "051 72 44 52 2",
+    "Gsm": "0471 21 09 72 2",
+    "Geboortedatum": "28/10/1999 2",
+    "Geslacht": "Man 2",
+    "Beperking": 0,
+    "VerminderdLidgeld": 0
+}
+
+###
+
+PUT http://0.0.0.0:3000/tak/62138bfcbd6da692308c77a7 HTTP/1.1
+Content-Type: application/json
+
+{
+    "TakNaam": "Kapoenen 2 2"
+}
+
+###
+
+PUT http://0.0.0.0:3000/groep/62693eb1094d22181b3a13ff HTTP/1.1
+Content-Type: application/json
+
+{
+    "GroepNaam": "Karel De Poele 2",
+    "Site": "scoutslichtervelde.be 2",
+    "Email": "groepsleiding@scoutslichtervelde.be 2",
+    "Oprichtingsdatum": "01/09/1960 2",
+    "Rekeningnummer": "BE12 3456 7891 0111 2",
+    "Adres": "Oude Bruggeweg 16 2",
+    "Postcode": "8810 2",
+    "Gemeente": "Lichtervelde 2",
+    "Groepsleider1": "Robbe Desmet 2",
+    "Groepsleider2": "Sybe Raedt 2",
+    "Secretaris": "Anton Labeeuw 2",
+    "Penningmeester": "Siemen Delbecque 2"
+}

@@ -14,38 +14,46 @@ app.MapGet("/", () => "Hello World!");
 
 // GET
 
-app.MapGet("/leden", (ILidService LidService) => LidService.GetAllLeden());
+app.MapGet("/leden", (ILidService lidService) => lidService.GetAllLeden());
 
-app.MapGet("/lid/{lidId}", (ILidService LidService, string lidId) => LidService.GetLid(lidId));
+app.MapGet("/lid/{lidId}", (ILidService lidService, string lidId) => lidService.GetLid(lidId));
 
-app.MapGet("/leden/tak/{takId}", (ILidService LidService, string takId) => LidService.GetLedenByTakId(takId));
+app.MapGet("/leden/tak/{takId}", (ILidService lidService, string takId) => lidService.GetLedenByTakId(takId));
 
-app.MapGet("/leden/groep/{groepId}", (ILidService LidService, string groepId) => LidService.GetLedenByGroepId(groepId));
+app.MapGet("/leden/groep/{groepId}", (ILidService lidService, string groepId) => lidService.GetLedenByGroepId(groepId));
 
-app.MapGet("/takken", (ILidService LidService) => LidService.GetAllTakken());
+app.MapGet("/takken", (ILidService lidService) => lidService.GetAllTakken());
 
-app.MapGet("/tak/{takId}", (ILidService LidService, string takId) => LidService.GetTak(takId));
+app.MapGet("/tak/{takId}", (ILidService lidService, string takId) => lidService.GetTak(takId));
 
-app.MapGet("/groepen", (ILidService LidService) => LidService.GetAllGroepen());
+app.MapGet("/groepen", (ILidService lidService) => lidService.GetAllGroepen());
 
-app.MapGet("/groep/{groepId}", (ILidService LidService, string groepId) => LidService.GetGroep(groepId));
+app.MapGet("/groep/{groepId}", (ILidService lidService, string groepId) => lidService.GetGroep(groepId));
 
 // POST
 
-app.MapPost("/lid", async (ILidService LidService, Lid lid) => {
-    var result = await LidService.AddLid(lid);
+app.MapPost("/lid", async (ILidService lidService, Lid lid) => {
+    var result = await lidService.AddLid(lid);
     return Results.Created("", result);
 });
 
-app.MapPost("/tak", async (ILidService LidService, Tak tak) => {
-    var result = await LidService.AddTak(tak);
+app.MapPost("/tak", async (ILidService lidService, Tak tak) => {
+    var result = await lidService.AddTak(tak);
     return Results.Created($"/takken/{tak.TakId}", result);
 });
 
-app.MapPost("/groep", async (ILidService LidService, Groep groep) => {
-    var result = await LidService.AddGroep(groep);
+app.MapPost("/groep", async (ILidService lidService, Groep groep) => {
+    var result = await lidService.AddGroep(groep);
     return Results.Created("", result);
 });
+
+// PUT
+
+app.MapPut("/lid/{lidId}", async (ILidService lidService, string lidId, Lid lid) => await lidService.UpdateLid(lidId, lid));
+
+app.MapPut("/tak/{takId}", async (ILidService lidService, string takId, Tak tak) => await lidService.UpdateTak(takId, tak));
+
+app.MapPut("/groep/{groepId}", async (ILidService lidService, string groepId, Groep groep) => await lidService.UpdateGroep(groepId, groep));
 
 
 app.Run("http://0.0.0.0:3000");
