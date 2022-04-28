@@ -3,6 +3,7 @@ namespace Leden.API.Repositories;
 public interface ITakRepository
 {
     Task<Tak> AddTak(Tak newTak);
+    Task DeleteTak(string takId);
     Task<List<Tak>> GetAllTakken();
     Task<Tak> GetTak(string id);
     Task<Tak> UpdateTak(string takId, Tak tak);
@@ -23,11 +24,13 @@ public class TakRepository : ITakRepository
 
     public async Task<Tak> AddTak(Tak newTak)
     {
-        try {
+        try
+        {
             await _context.TakCollection.InsertOneAsync(newTak);
             return newTak;
         }
-        catch (Exception ex){
+        catch (Exception ex)
+        {
             Console.WriteLine(ex);
             throw;
         }
@@ -40,4 +43,6 @@ public class TakRepository : ITakRepository
         var result = await _context.TakCollection.UpdateOneAsync(filter, update);
         return await GetTak(takId);
     }
+
+    public async Task DeleteTak(string takId) => await _context.TakCollection.DeleteOneAsync(t => t.TakId == takId);
 }

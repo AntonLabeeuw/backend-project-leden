@@ -5,6 +5,9 @@ public interface ILidService
     Task<Groep> AddGroep(Groep newGroep);
     Task<Lid> AddLid(Lid newLid);
     Task<Tak> AddTak(Tak newTak);
+    Task DeleteGroep(string groepId);
+    Task DeleteLid(string lidId);
+    Task DeleteTak(string takId);
     Task<List<Groep>> GetAllGroepen();
     Task<List<Lid>> GetAllLeden();
     Task<List<Tak>> GetAllTakken();
@@ -58,4 +61,10 @@ public class LidService : ILidService
     public async Task<Tak> UpdateTak(string takId, Tak tak) => await _takRepository.UpdateTak(takId, tak);
 
     public async Task<Groep> UpdateGroep(string groepId, Groep groep) => await _groepRepository.UpdateGroep(groepId, groep);
+
+    public async Task DeleteLid(string lidId) => await _lidRepository.DeleteLid(lidId);
+
+    public async Task DeleteTak(string takId) => await _takRepository.DeleteTak(takId);
+
+    public async Task DeleteGroep(string groepId) => await _groepRepository.DeleteGroep(groepId);
 }

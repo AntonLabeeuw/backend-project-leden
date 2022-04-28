@@ -3,6 +3,7 @@ namespace Leden.API.Repositories;
 public interface ILidRepository
 {
     Task<Lid> AddLid(Lid newLid);
+    Task DeleteLid(string lidId);
     Task<List<Lid>> GetAllLeden();
     Task<List<Lid>> GetLedenByGroepId(string groepId);
     Task<List<Lid>> GetLedenByTakId(string TakId);
@@ -53,4 +54,6 @@ public class LidRepository : ILidRepository
         await _context.LidCollection.UpdateOneAsync(filter, update);
         return await GetLid(lidId);
     }
+
+    public async Task DeleteLid(string lidId) => await _context.LidCollection.DeleteOneAsync(l => l.LidId == lidId);
 }

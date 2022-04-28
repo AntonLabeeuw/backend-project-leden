@@ -55,5 +55,13 @@ app.MapPut("/tak/{takId}", async (ILidService lidService, string takId, Tak tak)
 
 app.MapPut("/groep/{groepId}", async (ILidService lidService, string groepId, Groep groep) => await lidService.UpdateGroep(groepId, groep));
 
+// DELETE
+
+app.MapDelete("/lid/{lidId}", async (ILidService lidService, string lidId) => await lidService.DeleteLid(lidId));
+
+app.MapDelete("/tak/{takId}", async (ILidService lidService, string takId) => await lidService.DeleteLid(takId));
+
+app.MapDelete("/groep/{groepId}", async (ILidService lidService, string groepId) => await lidService.DeleteLid(groepId));
+
 
 app.Run("http://0.0.0.0:3000");

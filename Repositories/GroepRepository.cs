@@ -3,6 +3,7 @@ namespace Leden.API.Repositories;
 public interface IGroepRepository
 {
     Task<Groep> AddGroep(Groep newGroep);
+    Task DeleteGroep(string groepId);
     Task<List<Groep>> GetAllGroepen();
     Task<Groep> GetGroep(string id);
     Task<Groep> UpdateGroep(string groepId, Groep groep);
@@ -55,4 +56,6 @@ public class GroepRepository : IGroepRepository
         await _context.GroepCollection.UpdateOneAsync(filter, update);
         return await GetGroep(groepId);
     }
+
+    public async Task DeleteGroep(string groepId) => await _context.GroepCollection.DeleteOneAsync(t => t.GroepId == groepId);
 }

@@ -129,3 +129,15 @@ Content-Type: application/json
     "Secretaris": "Anton Labeeuw 2",
     "Penningmeester": "Siemen Delbecque 2"
 }
+
+###
+
+DELETE http://0.0.0.0:3000/lid/62698fccde4532ed7323ceee HTTP/1.1
+
+###
+
+DELETE http://0.0.0.0:3000/tak/62138bfcbd6da692308c77a7 HTTP/1.1
+
+###
+
+DELETE http://0.0.0.0:3000/groep/62693eb1094d22181b3a13ff HTTP/1.1
