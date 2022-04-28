@@ -6,6 +6,8 @@ global using Microsoft.Extensions.Options;
 global using MongoDB.Bson;
 global using MongoDB.Bson.Serialization.Attributes;
 global using MongoDB.Driver;
+global using FluentValidation;
+global using FluentValidation.AspNetCore;
 
 // Custom
 global using Leden.API.Models;
@@ -13,3 +15,4 @@ global using Leden.API.Repositories;
 global using Leden.API.Services;
 global using Leden.API.Configuration;
 global using Leden.API.Context;
+global using Leden.API.Validators;
