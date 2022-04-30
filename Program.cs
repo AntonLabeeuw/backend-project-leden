@@ -92,4 +92,7 @@ app.MapDelete("/tak/{takId}", async (ILidService lidService, string takId) => aw
 app.MapDelete("/groep/{groepId}", async (ILidService lidService, string groepId) => await lidService.DeleteLid(groepId));
 
 
-app.Run("http://0.0.0.0:3000");
+// app.Run("http://0.0.0.0:3000");
+app.Run();
+
+public partial class Program { };
