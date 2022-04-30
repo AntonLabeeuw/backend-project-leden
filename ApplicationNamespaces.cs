@@ -16,3 +16,7 @@ global using Leden.API.Services;
 global using Leden.API.Configuration;
 global using Leden.API.Context;
 global using Leden.API.Validators;
+global using Leden.API.GraphQL;
+global using Leden.API.GraphQL.Leden;
+global using Leden.API.GraphQL.Takken;
+global using Leden.API.GraphQL.Groepen;
