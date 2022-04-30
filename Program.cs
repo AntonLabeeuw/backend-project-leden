@@ -5,6 +5,11 @@ builder.Services.AddTransient<IMongoContext, MongoContext>();
 builder.Services.AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<LidValidator>());
 builder.Services.AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<TakValidator>());
 builder.Services.AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<GroepValidator>());
+builder.Services
+    .AddGraphQLServer()
+    .AddQueryType<Queries>()
+    .ModifyRequestOptions(opt => opt.IncludeExceptionDetails = true)
+    .AddMutationType<Mutation>();
 
 builder.Services.AddTransient<ILidRepository, LidRepository>();
 builder.Services.AddTransient<ITakRepository, TakRepository>();
@@ -12,6 +17,7 @@ builder.Services.AddTransient<IGroepRepository, GroepRepository>();
 builder.Services.AddTransient<ILidService, LidService>();
 
 var app = builder.Build();
+app.MapGraphQL();
 
 app.MapGet("/", () => "Hello World!");
 
