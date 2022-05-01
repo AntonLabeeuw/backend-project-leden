@@ -8,6 +8,10 @@ global using MongoDB.Bson.Serialization.Attributes;
 global using MongoDB.Driver;
 global using FluentValidation;
 global using FluentValidation.AspNetCore;
+global using Microsoft.IdentityModel.Tokens;
+global using System.IdentityModel.Tokens.Jwt;
+global using System.Security.Claims;
+global using Microsoft.AspNetCore.Authorization;
 
 // Custom
 global using Leden.API.Models;

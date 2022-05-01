@@ -1,4 +1,5 @@
-GET http://0.0.0.0:3000/leden HTTP/1.1
+GET http://localhost:3000/leden HTTP/1.1
+# Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFudG9ubCIsIm5hbWUiOiJMYWJlZXV3IEFudG9uIiwiY2l0eSI6IkxpY2h0ZXJ2ZWxkZSIsImV4cCI6MTY1MTQyMzQ0NCwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDozMDAwIiwiYXVkIjoibGVkZW5hcGkifQ.ZWYP37Zou4E4LulkLUD66wPEeETll1ZcXf98tawugvA
 
 ###
 
@@ -132,7 +133,7 @@ Content-Type: application/json
 
 ###
 
-DELETE http://0.0.0.0:3000/lid/62698fccde4532ed7323ceee HTTP/1.1
+DELETE http://0.0.0.0:3000/lid/62699f027c4fb544ee06bccc HTTP/1.1
 
 ###
 
@@ -141,3 +142,13 @@ DELETE http://0.0.0.0:3000/tak/62138bfcbd6da692308c77a7 HTTP/1.1
 ###
 
 DELETE http://0.0.0.0:3000/groep/62693eb1094d22181b3a13ff HTTP/1.1
+  
+###
+
+POST http://localhost:3000/authenticate HTTP/1.1
+Content-Type: application/json
+
+{
+    "username": "antonl",
+    "password": "secret"
+}
