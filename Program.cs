@@ -1,29 +1,61 @@
 var builder = WebApplication.CreateBuilder(args);
+
 var mongoSettings = builder.Configuration.GetSection("MongoConnection");
 builder.Services.Configure<DatabaseSettings>(mongoSettings);
+
+var authSettings = builder.Configuration.GetSection("AuthenticationSettings");
+builder.Services.Configure<AuthenticationSettings>(authSettings);
+
 builder.Services.AddTransient<IMongoContext, MongoContext>();
+builder.Services.AddTransient<ILidRepository, LidRepository>();
+builder.Services.AddTransient<ITakRepository, TakRepository>();
+builder.Services.AddTransient<IGroepRepository, GroepRepository>();
+builder.Services.AddTransient<ILidService, LidService>();
+builder.Services.AddTransient<IAuthenticationService, AuthenticationService>();
+
 builder.Services.AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<LidValidator>());
 builder.Services.AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<TakValidator>());
 builder.Services.AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<GroepValidator>());
+
+builder.Services.AddAuthorization(options => { });
+
+builder.Services.AddAuthentication("Bearer").AddJwtBearer(options => {
+    options.TokenValidationParameters = new (){
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateIssuerSigningKey = true,
+        ValidIssuer = builder.Configuration["AuthenticationSettings:Issuer"],
+        ValidAudience = builder.Configuration["AuthenticationSettings:Audience"],
+        IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.ASCII.GetBytes(builder.Configuration["AuthenticationSettings:SecretForKey"]))
+    };
+});
+
 builder.Services
     .AddGraphQLServer()
     .AddQueryType<Queries>()
     .ModifyRequestOptions(opt => opt.IncludeExceptionDetails = true)
     .AddMutationType<Mutation>();
 
-builder.Services.AddTransient<ILidRepository, LidRepository>();
-builder.Services.AddTransient<ITakRepository, TakRepository>();
-builder.Services.AddTransient<IGroepRepository, GroepRepository>();
-builder.Services.AddTransient<ILidService, LidService>();
-
 var app = builder.Build();
+
+// app.MapSwagger();
+// app.UseSwaggerUI();
+
 app.MapGraphQL();
+
+app.UseAuthentication();
+app.UseAuthorization();
+
 
 app.MapGet("/", () => "Hello World!");
 
 // GET
 
 app.MapGet("/leden", async (ILidService lidService) => await lidService.GetAllLeden());
+
+// app.MapGet("/leden", [Authorize] async (ILidService lidService, ClaimsPrincipal user) => {
+//     return Results.Ok(await lidService.GetAllLeden());
+// });
 
 app.MapGet("/lid/{lidId}", async (ILidService lidService, string lidId) => await lidService.GetLid(lidId));
 
@@ -90,6 +122,18 @@ app.MapDelete("/lid/{lidId}", async (ILidService lidService, string lidId) => aw
 app.MapDelete("/tak/{takId}", async (ILidService lidService, string takId) => await lidService.DeleteLid(takId));
 
 app.MapDelete("/groep/{groepId}", async (ILidService lidService, string groepId) => await lidService.DeleteLid(groepId));
+
+// AUTHENTICATION
+
+app.MapPost("/authenticate", (IAuthenticationService authenticationService, AuthenticationRequestBody authenticationRequestBody) => {
+    var resp = authenticationService.Authenticate(authenticationRequestBody);
+
+    if (resp is null){
+        return Results.Unauthorized();
+    } else {
+        return Results.Ok(resp);
+    }
+});
 
 
 // app.Run("http://0.0.0.0:3000");
