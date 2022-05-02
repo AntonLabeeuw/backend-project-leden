@@ -36,10 +36,13 @@ builder.Services
     .ModifyRequestOptions(opt => opt.IncludeExceptionDetails = true)
     .AddMutationType<Mutation>();
 
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
 var app = builder.Build();
 
-// app.MapSwagger();
-// app.UseSwaggerUI();
+app.MapSwagger();
+app.UseSwaggerUI();
 
 app.MapGraphQL();
 
@@ -130,20 +133,11 @@ app.MapPost("/authenticate", (IAuthenticationService authenticationService, Auth
     }
 });
 
-// AUTHENTICATION
+//link naar swagger:
+// http://localhost:3000/Swagger/index.html?UjXn2r5u8x/A?D(G+KbPeSgVkYp3s6v9
 
-app.MapPost("/authenticate", (IAuthenticationService authenticationService, AuthenticationRequestBody authenticationRequestBody) => {
-    var resp = authenticationService.Authenticate(authenticationRequestBody);
-
-    if (resp is null){
-        return Results.Unauthorized();
-    } else {
-        return Results.Ok(resp);
-    }
-});
-
-// app.Run("http://0.0.0.0:3000");
-app.Run();
+app.Run("http://0.0.0.0:3000");
+// app.Run();
 
 public partial class Program { };
 

@@ -1,3 +1,7 @@
+GET http://localhost:3000/ HTTP/1.1
+
+###
+
 GET http://localhost:3000/leden HTTP/1.1
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFudG9ubCIsIm5hbWUiOiJMYWJlZXV3IEFudG9uIiwiY2l0eSI6IkxpY2h0ZXJ2ZWxkZSIsImV4cCI6MTY1MTQyMzQ0NCwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDozMDAwIiwiYXVkIjoibGVkZW5hcGkifQ.ZWYP37Zou4E4LulkLUD66wPEeETll1ZcXf98tawugvA
 
